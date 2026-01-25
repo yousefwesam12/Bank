@@ -154,6 +154,7 @@ class clsMainScreen : protected clsScreen
     public:
     static void ShowMainMenue()
     {
+            _ClearScreen();
             clsScreen::_DrawScreenHeader("\t\tMain Screen");
 
             cout << setw(37)  << left  << "" << "===========================================\n";

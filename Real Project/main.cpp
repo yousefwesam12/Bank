@@ -1,12 +1,8 @@
 #include <iostream>
-#include "clsMainScreen.h"
-#include "clsInputValidate.h"
-#include "clsBankUser.h"
-
+#include "clsLoginScreen.h"
 
 int main()
 {
-
-    clsMainScreen::ShowMainMenue();
+    clsLoginScreen::ShowLoginScreen();
     return 0;
 }
