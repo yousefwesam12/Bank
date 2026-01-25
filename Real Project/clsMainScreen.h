@@ -96,7 +96,6 @@ class clsMainScreen : protected clsScreen
             case eLogout:
             _ClearScreen();
             _Logout();
-            _GoBackToMainMenue();
             break;
 
             default:
