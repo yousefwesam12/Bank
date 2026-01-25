@@ -19,7 +19,6 @@ class clsLoginScreen : protected clsScreen
 
         string Username,Password;
         bool LoginFailed = false;
-
         do
         {
 
