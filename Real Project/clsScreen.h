@@ -20,4 +20,9 @@ class clsScreen
         }
         cout << "\n" << clsUtil::Tabs(5) << "______________________________________\n\n";
     }
+    public:
+    static void ShowAccessDeniedMessage()
+    {
+        _DrawScreenHeader(" Access Denied! Contact your Admin.");
+    }
 };

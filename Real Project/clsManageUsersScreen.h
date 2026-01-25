@@ -115,6 +115,11 @@ class clsManageUsersScreen : protected clsScreen
     public:
     static void ShowManageUsersScreen()
     {
+        if(!CurrentUser.HasAccessToThisPermission(clsBankUser::pManageUsers))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
         _DrawScreenHeader("\t Manage Users Screen");
 
             cout << setw(37)  << left  << "" << "===========================================\n";

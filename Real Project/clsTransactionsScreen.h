@@ -88,6 +88,11 @@ class clsTransactionsScreen : protected clsScreen
     public:
     static void ShowTransactionsScreen()
     {
+         if(!CurrentUser.HasAccessToThisPermission(clsBankUser::pTransactions))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
             _ClearScreen();
             _DrawScreenHeader("\t Transactions Screen");
             cout << setw(37)  << left  << "" << "===========================================\n";

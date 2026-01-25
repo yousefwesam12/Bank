@@ -129,6 +129,16 @@ class clsBankUser : public clsPerson
         pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64
     };
 
+    bool HasAccessToThisPermission(enPermissions Permission)
+    {   
+        if(GetPermissions() == -1)
+        {
+            return true;
+        }
+        
+        return ( (GetPermissions() & Permission) == Permission);
+    }
+
     clsBankUser(enMode Mode,string FirstName,string LastName,string Email,string Phone,string Username,string Password,short Permissions)
      : clsPerson(FirstName,LastName,Email,Phone)
     {

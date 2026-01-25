@@ -26,6 +26,11 @@ class clsDeleteClientScreen : protected clsScreen
     public:
     static void _ShowDeleteClientScreen()
     {
+        if(!CurrentUser.HasAccessToThisPermission(clsBankUser::pDeleteClient))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
         _DrawScreenHeader("\t Delete Client Screen");
 
         string AccountNumber = "";

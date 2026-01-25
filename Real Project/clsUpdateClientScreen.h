@@ -46,6 +46,11 @@ class clsUpdateClientScreen : protected clsScreen
     public:
     static void ShowUpdateClientScreen()
     {
+        if(!CurrentUser.HasAccessToThisPermission(clsBankUser::pUpdateClient))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
         _DrawScreenHeader("\t Update Client Screen");
 
         string AccountNumber = "";

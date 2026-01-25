@@ -26,6 +26,11 @@ class clsFindClientScreen : protected clsScreen
     public:
     static void ShowFindClientScreen()
     {
+         if(!CurrentUser.HasAccessToThisPermission(clsBankUser::pFindClient))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
         _DrawScreenHeader("\t Find Client Screen");
 
         string AccountNumber = "";
