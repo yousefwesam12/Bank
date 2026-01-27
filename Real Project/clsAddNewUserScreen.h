@@ -77,6 +77,14 @@ class clsAddNewUserScreen : protected clsScreen
         {
             Permissions += clsBankUser::pManageUsers;
         }
+        cout << "\n" << "Show Log Registers? y/n? ";
+        cin >> answer;
+
+        if(tolower(answer) == 'y')
+        {
+            Permissions += clsBankUser::pLogRegister;
+        }
+
 
         return Permissions;
 

@@ -75,6 +75,13 @@ class clsUpdateUserScreen : protected clsScreen
         {
             Permissions += clsBankUser::pManageUsers;
         }
+        cout << "\n" << "Show Log registers? y/n? ";
+        cin >> answer;
+
+        if(tolower(answer) == 'y')
+        {
+            Permissions += clsBankUser::pLogRegister;
+        }
 
         return Permissions;
 

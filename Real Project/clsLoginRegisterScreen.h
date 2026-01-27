@@ -21,6 +21,11 @@ class clsLoginRegisterScreen : protected clsScreen
     public:
     static void ShowLoginRegisterScreen()
     {
+        if (!CurrentUser.HasAccessToThisPermission(clsBankUser::pLogRegister))
+        {
+            ShowAccessDeniedMessage();
+            return;
+        }
         vector <clsBankUser::stLoginRegisterInfo> vLoginInfo = clsBankUser::GetLoginRegisterInfo();
         string Title = "\tLogin Register List Screen";
         string SubTitle = "\t\t(" + to_string(vLoginInfo.size()) + ") Record(s).";
