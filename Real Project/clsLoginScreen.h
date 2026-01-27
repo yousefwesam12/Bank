@@ -14,17 +14,26 @@ class clsLoginScreen : protected clsScreen
         system("clear");
     }
 
-    static void _Login()
+    static bool _Login()
     {
 
         string Username,Password;
+        short FailedLoginCount = 0;
         bool LoginFailed = false;
         do
         {
 
             if(LoginFailed)
             {
+                FailedLoginCount++;
                 cout << "\n" << "Invalid username/password.";
+                cout << "\n" << "You have " << 3 - FailedLoginCount << " Trials to login.\n";
+
+                if(FailedLoginCount == 3)
+                {
+                    cout << "\n" << "You are locked after 3 failed trails.";
+                    return false;
+                }
             }
 
             cout << "\n" << "Enter username : ";
@@ -42,14 +51,15 @@ class clsLoginScreen : protected clsScreen
 
 
         clsMainScreen::ShowMainMenue();
+        return true;
     }
 
     public:
-    static void ShowLoginScreen()
+    static bool ShowLoginScreen()
     {
         _ClearScreen();
         _DrawScreenHeader("\t\tLogin Screen");
-        _Login();
+        return _Login();
     }
 
 };
