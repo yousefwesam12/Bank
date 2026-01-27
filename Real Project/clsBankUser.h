@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsPerson.h"
 #include "clsString.h"
+#include "clsDate.h"
 #include <vector>
 #include <fstream>
 
@@ -21,7 +22,18 @@ class clsBankUser : public clsPerson
         vector <string> vUserData = clsString::Split(Line,Sep);
         return clsBankUser(eUpdateMode,vUserData[0],vUserData[1],vUserData[2],vUserData[3],vUserData[4],vUserData[5],stoi(vUserData[6]));
     }
-    
+
+    string _PrepareLogInRecord(string Seperator = "#//#")
+    {
+        string LoginRecord = "";
+        LoginRecord += clsDate::DateToString(clsDate::GetSystemDate()) + " - ";
+        LoginRecord += clsDate::GetSystemTimeString() + Seperator;
+        LoginRecord += _Username + Seperator;
+        LoginRecord += _Password + Seperator;
+        LoginRecord += to_string(_Permissions);
+        return LoginRecord;
+    }
+
     static string _ConvertClientObjectToLine(clsBankUser User,string Sep = "#//#")
     {
         string stLine = "";
@@ -311,5 +323,20 @@ class clsBankUser : public clsPerson
         return clsBankUser(eAddNewMode,"","","","",Username,"",0);
     }
 
+    void RegisterLogIn()
+    {
+        string stRegisterLine = _PrepareLogInRecord();
+
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt",ios::out|ios::app);
+
+        if(MyFile.is_open())
+        {
+
+            MyFile << stRegisterLine << endl;
+
+            MyFile.close();
+        }
+    }
 
 };

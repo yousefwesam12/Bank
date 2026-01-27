@@ -1,4 +1,6 @@
+#pragma warning(disable : 4996)
 #include <iostream>
+#include <ctime>
 #include "clsLoginScreen.h"
 
 int main()
@@ -11,5 +13,6 @@ int main()
             break;
         }
     }
+
     return 0;
 }

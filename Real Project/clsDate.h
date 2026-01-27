@@ -1,8 +1,10 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include <iostream>
 #include <string>
 #include <vector>
 #include "clsString.h"
+#include <ctime>
 using namespace std;
 
 class clsDate
@@ -967,6 +969,16 @@ class clsDate
     {
         return DayShortName(this->Day,this->Month,this->Year);
     }
+    static string GetSystemTimeString()
+    {
+        string SystemTime = "";
+        time_t t = time(0);
+        tm *now = localtime(&t);
+        SystemTime = to_string(now->tm_hour) + ":" + to_string(now->tm_min) + ":" + to_string(now->tm_sec);
+        return SystemTime;
+    }
+
+    
 
     
 
