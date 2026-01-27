@@ -10,6 +10,7 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
+#include "clsLoginRegisterScreen.h"
 #include "Global.h"
 
 using namespace std;
@@ -22,14 +23,14 @@ class clsMainScreen : protected clsScreen
     {
         eShowClientList = 1, eAddNewClient = 2, eDeleteCLient = 3,
         eUpdateClient   = 4, eFindClient   = 5, eTransactions = 6,
-        eManageUsers    = 7, eLogout       = 8
+        eManageUsers    = 7, eLoginRegister = 8, eLogout      = 9
     };
     
     static short _ReadMainScreenChoice()
     {
         short Choice = 0;
-        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 8]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,8);
+        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 9]? ";
+        Choice = clsInputValidate::ReadIntNumberBetween(1,9);
         return Choice;
     }
     
@@ -93,6 +94,12 @@ class clsMainScreen : protected clsScreen
             _GoBackToMainMenue();
             break;
 
+            case eLoginRegister:
+            _ClearScreen();
+            _ShowLoginRegisterScreen();
+            _GoBackToMainMenue();
+            break;
+
             case eLogout:
             _ClearScreen();
             _Logout();
@@ -144,6 +151,12 @@ class clsMainScreen : protected clsScreen
         //cout << "\n" << "Manage Users Screen Will be here..\n";
         clsManageUsersScreen::ShowManageUsersScreen();
     }
+
+    static void _ShowLoginRegisterScreen()
+    {
+        //cout << "\n" << "Login Register Screen will be here..\n";
+        clsLoginRegisterScreen::ShowLoginRegisterScreen();
+    }
     
     static void _Logout()
     {
@@ -168,7 +181,8 @@ class clsMainScreen : protected clsScreen
             cout << setw(37) << left << ""  <<  "\t[5] Find Client.\n";
             cout << setw(37) << left << ""  <<  "\t[6] Transactions.\n";
             cout << setw(37) << left << ""  <<  "\t[7] Manage Users.\n";
-            cout << setw(37) << left << ""  <<  "\t[8] Exit.\n";
+            cout << setw(37) << left << ""  <<  "\t[8] Login Register.\n";
+            cout << setw(37) << left << ""  <<  "\t[9] Exit.\n";
             cout << setw(37) << left << "" << "===========================================\n";
             _PerformMainMenueOption(_enMainScreenChoices(_ReadMainScreenChoice()));
     }

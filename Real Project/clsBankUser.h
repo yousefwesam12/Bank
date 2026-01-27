@@ -131,9 +131,9 @@ class clsBankUser : public clsPerson
             MyFile.close();
         }
     }
-    
 
     public:
+
 
     enum enPermissions
     {
@@ -159,6 +159,7 @@ class clsBankUser : public clsPerson
         _Password = Password;
         _Permissions = Permissions;
     }
+    
     void SetUsername(string Username)
     {
         this->_Username = Username;
@@ -187,6 +188,7 @@ class clsBankUser : public clsPerson
     {
         return this->_MarkedForDelete;
     }
+    
     enum enSaveResults {svFailedEmptyObject = 0, svSucceeded = 1, svFailedUserExists = 3};
 
     enSaveResults Save()
@@ -337,6 +339,49 @@ class clsBankUser : public clsPerson
 
             MyFile.close();
         }
+    }
+
+    struct stLoginRegisterInfo
+    {
+        string DateAndTime = "";
+        string Username = "";
+        string Password = "";
+        short Permissions = 0;
+    };
+      
+    static stLoginRegisterInfo ConvertLoginRegisterLineToRecord(string stLoginLine)
+    {
+        stLoginRegisterInfo RegisterInfo;
+        vector <string> vLine = clsString::Split(stLoginLine,"#//#");
+        RegisterInfo.DateAndTime = vLine[0];
+        RegisterInfo.Username = vLine[1];
+        RegisterInfo.Password = vLine[2];
+        RegisterInfo.Permissions = stoi(vLine[3]);
+        return RegisterInfo;
+    };
+    
+    static vector <stLoginRegisterInfo> GetLoginRegisterInfo()
+    {
+        vector <stLoginRegisterInfo> vLoginRegisterInfo;
+
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt",ios::in);
+
+        if(MyFile.is_open())
+        {
+            string line;
+            stLoginRegisterInfo RegisterInfo;
+
+            while(getline(MyFile,line))
+            {
+                RegisterInfo = ConvertLoginRegisterLineToRecord(line);
+                vLoginRegisterInfo.push_back(RegisterInfo);
+            }
+
+            MyFile.close();
+        }
+
+            return vLoginRegisterInfo;
     }
 
 };
