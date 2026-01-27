@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iomanip>
 #include "clsUtil.h"
+#include "clsDate.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -19,6 +21,8 @@ class clsScreen
             cout << "\n" << clsUtil::Tabs(5) << SubTitle;
         }
         cout << "\n" << clsUtil::Tabs(5) << "______________________________________\n\n";
+        cout << clsUtil::Tabs(5) << "User: " << CurrentUser.GetUsername() << endl;
+        cout << clsUtil::Tabs(5) << "Date: " << clsDate::DateToString(clsDate::GetSystemDate())<< "\n\n";
     }
     public:
     static void ShowAccessDeniedMessage()

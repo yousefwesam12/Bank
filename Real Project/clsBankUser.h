@@ -131,7 +131,7 @@ class clsBankUser : public clsPerson
 
     bool HasAccessToThisPermission(enPermissions Permission)
     {   
-        if(GetPermissions() == -1)
+        if(GetPermissions() == pAll)
         {
             return true;
         }
