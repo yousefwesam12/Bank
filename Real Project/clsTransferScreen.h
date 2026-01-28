@@ -6,6 +6,21 @@
 
 class clsTransferScreen : protected clsScreen
 {
+    static double _ReadAmount()
+    {
+    
+        double TransferAmount = 0;
+        do
+        {
+            cout << "\n" << "Enter Transfer Amount? ";
+            TransferAmount = clsInputValidate::ReadDoubleNumber();
+
+        } while (TransferAmount<=0);
+
+        return TransferAmount;
+    
+    }
+    
     static string _ReadAccountNumber(string Message)
     {
         string AccountNumber = "";
@@ -33,23 +48,15 @@ class clsTransferScreen : protected clsScreen
     public:
     static void ShowTransferScreen()
     {
-        string AccountNumberFrom = _ReadAccountNumber("\nPlease Enter Account Number To Transfer From: ");
-        clsBankClient ClientFrom = clsBankClient::Find(AccountNumberFrom);
-        _PrintClient(ClientFrom);
+        _DrawScreenHeader("\tTransfer Screen");
 
-        string AccountNumberTo = _ReadAccountNumber("\nPlease Enter Account Number To Transfer To: ");
-        clsBankClient ClientTo = clsBankClient::Find(AccountNumberTo);
-        _PrintClient(ClientTo);
+        clsBankClient SourceClient = clsBankClient::Find(_ReadAccountNumber("\nPlease Enter Account Number To Transfer From: "));
+        _PrintClient(SourceClient);
 
-        double TransferAmount = 0;
-        cout << "\n" << "Enter Transfer Amount? ";
-        TransferAmount = clsInputValidate::ReadDoubleNumber();
+        clsBankClient DestinationClient = clsBankClient::Find(_ReadAccountNumber("\nPlease Enter Account Number To Transfer To: "));
+        _PrintClient(DestinationClient);
 
-        while(!ClientFrom.HasEnoughMoney(TransferAmount))
-        {
-            cout << "\n" <<"Amount Exceeds the avaliable balance, Enter another amount : ";
-            TransferAmount = clsInputValidate::ReadDoubleNumber();
-        }
+        double TransferAmount = _ReadAmount();
 
         char Answer = 'n';
         cout << "\n" << "Are you sure you want to perform this operation? y/n? ";
@@ -57,11 +64,19 @@ class clsTransferScreen : protected clsScreen
 
         if(tolower(Answer)=='y')
         {
-            ClientFrom.Transfer(ClientTo,TransferAmount);
-            cout << "\nTransfer Done Successfully\n";
-            _PrintClient(ClientFrom);
-            _PrintClient(ClientTo);
+
+            if(SourceClient.Transfer(DestinationClient,TransferAmount))
+            {
+                cout << "\nTransfer Done Successfully\n";
+            }
+            else
+            {
+                cout << "\nTransfer Failed\n";
+            }
+
         }
+             _PrintClient(SourceClient);
+            _PrintClient(DestinationClient);
 
     }
 
