@@ -4,6 +4,7 @@
 #include "clsUtil.h"
 #include "clsString.h"
 #include "clsPerson.h"
+#include "Global.h"
 
 class clsBankClient : public clsPerson
 {
@@ -33,6 +34,31 @@ class clsBankClient : public clsPerson
         Line += Client.GetPinCode()   + Sep;
         Line += to_string(Client.GetAccountBalance());
         return Line;
+    }
+    
+    string _PrepeareRegisterTransferLogin(clsBankClient DestinationClient,double Amount,string Username,string Sep = "#//#")
+    {
+        string stLine = clsDate::DateToString(clsDate::GetSystemDate()) + " - ";
+        stLine       += clsDate::GetSystemTimeString() + Sep;
+        stLine       += _AccountNumber + Sep;
+        stLine       += DestinationClient.GetAccountNumber() + Sep;
+        stLine       += to_string(Amount) + Sep;
+        stLine       += to_string(_AccountBalance) + Sep;
+        stLine       += to_string(DestinationClient.GetAccountBalance()) + Sep;
+        stLine       += Username;
+        return stLine;
+    }
+
+    void _AddRegisterTransferToFile(string stLine)
+    {
+        fstream MyFile;
+        MyFile.open("RegisterLog.txt",ios::out|ios::app);
+
+        if(MyFile.is_open())
+        {
+            MyFile << stLine << endl;
+            MyFile.close();
+        }
     }
     
     static vector <clsBankClient> _LoadClientsDataFromFile()
@@ -90,11 +116,10 @@ class clsBankClient : public clsPerson
     {
         fstream MyFile;
 
-        MyFile.open("Clients.txt",ios::out|ios::app);
+        MyFile.open("Clients.txt",ios::app);
 
         if(MyFile.is_open())
         {
-
             MyFile << stDataLine << endl;
 
             MyFile.close();
@@ -128,6 +153,13 @@ class clsBankClient : public clsPerson
     static clsBankClient _GetEmptyClientObject()
     {
         return clsBankClient(enMode::EmptyMode,"","","","","","",0);
+    }
+
+
+    void _RegisterTransferLog(clsBankClient &DestinationClient,double Amount,string Username)
+    {
+        string stLine = _PrepeareRegisterTransferLogin(DestinationClient,Amount,Username);
+        _AddRegisterTransferToFile(stLine);
     }
 
     public:
@@ -293,6 +325,7 @@ class clsBankClient : public clsPerson
     {
         return _LoadClientsDataFromFile();
     }
+    
     static double GetTotalBalances()
     {
         double TotalBalances = 0;
@@ -305,11 +338,13 @@ class clsBankClient : public clsPerson
 
         return TotalBalances;
     }
+    
     void Deposit(double Amount)
     {
         _AccountBalance += Amount;
         Save();
     }
+    
     bool Withdraw(double Amount)
     {
         if(Amount > _AccountBalance)
@@ -324,11 +359,13 @@ class clsBankClient : public clsPerson
         }
         return true;
     }
+    
     bool HasEnoughMoney(double Amount)
     {
         return Amount <= _AccountBalance;
       
     }
+
     bool Transfer(clsBankClient &DestinationClient,double Amount)
     {
         if(!HasEnoughMoney(Amount))
@@ -338,6 +375,7 @@ class clsBankClient : public clsPerson
 
         Withdraw(Amount);
         DestinationClient.Deposit(Amount);
+        _RegisterTransferLog(DestinationClient,Amount,CurrentUser.GetUsername());
         return true;
 
     }
