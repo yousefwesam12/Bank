@@ -138,7 +138,7 @@ class clsBankUser : public clsPerson
     enum enPermissions
     {
         pAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
-        pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64, pLogRegister = 128
+        pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64, pLogRegister = 128, pTransferLog = 256
     };
 
     bool HasAccessToThisPermission(enPermissions Permission)
