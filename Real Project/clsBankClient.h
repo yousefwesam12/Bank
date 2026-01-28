@@ -324,4 +324,21 @@ class clsBankClient : public clsPerson
         }
         return true;
     }
+    bool HasEnoughMoney(double Amount)
+    {
+        return Amount <= _AccountBalance;
+      
+    }
+    bool Transfer(clsBankClient &DestinationClient,double Amount)
+    {
+        if(!HasEnoughMoney(Amount))
+        {
+            return false;
+        }
+
+        Withdraw(Amount);
+        DestinationClient.Deposit(Amount);
+        return true;
+
+    }
 };
