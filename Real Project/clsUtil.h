@@ -156,7 +156,7 @@ class clsUtil
         }
         return T;
     }
-    static string EncryptText(string Text,short Key)
+    static string EncryptText(string Text,short Key = 2)
     {
         for(int i = 0;i<Text.length();i++)
         {
@@ -164,7 +164,7 @@ class clsUtil
         }
         return Text;
     }
-    static string DecryptText(string Text,short Key)
+    static string DecryptText(string Text,short Key = 2)
     {
         for(int i = 0;i<Text.length();i++)
         {

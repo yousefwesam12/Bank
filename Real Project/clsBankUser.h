@@ -20,7 +20,7 @@ class clsBankUser : public clsPerson
     {
         //Adli#//#Haddad#//#Adli@Gmail.com#//#8983883#//#User1#//#1234#//#-1
         vector <string> vUserData = clsString::Split(Line,Sep);
-        return clsBankUser(eUpdateMode,vUserData[0],vUserData[1],vUserData[2],vUserData[3],vUserData[4],vUserData[5],stoi(vUserData[6]));
+        return clsBankUser(eUpdateMode,vUserData[0],vUserData[1],vUserData[2],vUserData[3],vUserData[4],clsUtil::DecryptText(vUserData[5]),stoi(vUserData[6]));
     }
 
     string _PrepareLogInRecord(string Seperator = "#//#")
@@ -42,7 +42,7 @@ class clsBankUser : public clsPerson
         stLine += User.GetEmail()     + Sep;
         stLine += User.GetPhone()     + Sep;
         stLine += User.GetUsername()  + Sep;
-        stLine += User.GetPassword()  + Sep;
+        stLine += clsUtil::EncryptText(User.GetPassword())  + Sep;
         stLine += to_string(User.GetPermissions());
 
         return stLine;
@@ -384,4 +384,6 @@ class clsBankUser : public clsPerson
             return vLoginRegisterInfo;
     }
 
+
+ 
 };
