@@ -55,5 +55,16 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false
+  "C_Cpp_Runner.msvcSecureNoWarnings": false,
+  "folder-color.pathColors": [
+    {
+      "folderPath": "Bank/Real Project/",
+      "color": "foldercolorizer.color_ffffff",
+      "badge": "💰"
+    },
+    {
+      "folderPath": "Bank/Real Project/Core/Client/Transactions/",
+      "color": "foldercolorizer.color_00cc00"
+    }
+  ]
 }

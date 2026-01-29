@@ -11,6 +11,7 @@
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
 #include "clsLoginRegisterScreen.h"
+#include "clsMainCurrencyScreen.h"
 #include "Global.h"
 
 using namespace std;
@@ -23,14 +24,14 @@ class clsMainScreen : protected clsScreen
     {
         eShowClientList = 1, eAddNewClient = 2, eDeleteCLient = 3,
         eUpdateClient   = 4, eFindClient   = 5, eTransactions = 6,
-        eManageUsers    = 7, eLoginRegister = 8, eLogout      = 9
+        eManageUsers    = 7, eLoginRegister = 8, eMainCurrency = 9 ,eLogout      = 10
     };
     
     static short _ReadMainScreenChoice()
     {
         short Choice = 0;
-        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 9]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,9);
+        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 10]? ";
+        Choice = clsInputValidate::ReadIntNumberBetween(1,10);
         return Choice;
     }
     
@@ -97,6 +98,11 @@ class clsMainScreen : protected clsScreen
             case eLoginRegister:
             _ClearScreen();
             _ShowLoginRegisterScreen();
+            _GoBackToMainMenue();
+            break;
+
+            case eMainCurrency:
+            clsMainCurrencyScreen::ShowMainCurrencyScreen();
             _GoBackToMainMenue();
             break;
 
@@ -182,7 +188,8 @@ class clsMainScreen : protected clsScreen
             cout << setw(37) << left << ""  <<  "\t[6] Transactions.\n";
             cout << setw(37) << left << ""  <<  "\t[7] Manage Users.\n";
             cout << setw(37) << left << ""  <<  "\t[8] Login Register.\n";
-            cout << setw(37) << left << ""  <<  "\t[9] Exit.\n";
+            cout << setw(37) << left << ""  <<  "\t[9] Currency Exchange.\n";
+            cout << setw(37) << left << ""  <<  "\t[10] Exit.\n";
             cout << setw(37) << left << "" << "===========================================\n";
             _PerformMainMenueOption(_enMainScreenChoices(_ReadMainScreenChoice()));
     }
