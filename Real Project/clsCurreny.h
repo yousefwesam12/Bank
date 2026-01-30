@@ -225,4 +225,20 @@ class clsCurrency
         _Update();
     }
     
+    float ConvertToUSD(float Amount)
+    {
+       return (Amount /GetRate());
+    }
+
+    float ConvertToOtherCurrnecy(float Amount, clsCurrency Currency2)
+    {
+        float AmountInUSD = ConvertToUSD(Amount);
+
+        if(Currency2.GetCountryCode() == "USD")
+        {
+            return AmountInUSD;
+        }
+
+        return (float)(AmountInUSD*Currency2.GetRate());
+    }
 };
