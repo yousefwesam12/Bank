@@ -4,30 +4,104 @@
 #include "clsCurreny.h"
 #include "clsInputValidate.h"
 
-class clsCurrencyCalculatorScreen : protected clsScreen
+class clsCurrencyCalculatorScreen :protected clsScreen
+
 {
+private:
 
-    private:
-
-    static void _PrintCurrency(clsCurrency Currency)
+    static float _ReadAmount()
     {
-        cout << "\n________________________";
-        cout << "\nCountry   : " << Currency.GetCountry();
-        cout << "\nCode      : " << Currency.GetCountryCode();
-        cout << "\nName      : " << Currency.GetCurrencyName();
-        cout << "\nRate(1$)  : " << Currency.GetRate();
-        cout << "\n________________________\n";
+        cout << "\nEnter Amount to Exchange: ";
+        float Amount = 0;
+
+        Amount = clsInputValidate::ReadNumber<float>();
+        return Amount;
     }
 
-    public:
+    static clsCurrency _GetCurrency(string Message)
+    {
+
+        string CurrencyCode;
+        cout << Message << endl;
+
+        CurrencyCode = clsInputValidate::ReadString();
+
+        while (!clsCurrency::IsCurrencyExist(CurrencyCode))
+        {
+            cout << "\nCurrency is not found, choose another one: ";
+            CurrencyCode = clsInputValidate::ReadString();
+        }
+
+        clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
+        return Currency;
+
+    }
+
+
+    static  void _PrintCurrencyCard(clsCurrency Currency, string Title = "Currency Card:")
+    {
+
+        cout << "\n" << Title << "\n";
+        cout << "_____________________________\n";
+        cout << "\nCountry       : " << Currency.GetCountry();
+        cout << "\nCode          : " << Currency.GetCountryCode();
+        cout << "\nName          : " << Currency.GetCurrencyName();
+        cout << "\nRate(1$) =    : " << Currency.GetRate();
+        cout << "\n_____________________________\n\n";
+
+    }
+   
+    static void _PrintCalculationsResults(float Amount, clsCurrency Currency1, clsCurrency Currency2)
+    {
+
+        _PrintCurrencyCard(Currency1, "Convert From:");
+
+        float AmountInUSD = Currency1.ConvertToUSD(Amount);
+
+        cout << Amount << " " << Currency1.GetCountryCode()
+            << " = " << AmountInUSD << " USD\n";
+
+        if (Currency2.GetCountryCode() == "USD")
+        {
+            return;
+        }
+
+        cout << "\nConverting from USD to:\n";
+
+        _PrintCurrencyCard(Currency2, "To:");
+
+        float AmountInCurrrency2 = Currency1.ConvertToOtherCurrnecy(Amount, Currency2);
+
+        cout << Amount << " " << Currency1.GetCountryCode()
+            << " = " << AmountInCurrrency2 << " " << Currency2.GetCountryCode();
+
+    }
+
+
+public:
 
     static void ShowCurrencyCalculatorScreen()
     {
-        _DrawScreenHeader("\tCurrency Calculator Screen");
-        
-        
+        char Continue = 'y';
+
+        while (Continue == 'y' || Continue == 'Y')
+        {
+            system("cls");
+
+            _DrawScreenHeader("\tUpdate Currency Screen");
+
+            clsCurrency CurrencyFrom = _GetCurrency("\nPlease Enter Currency1 Code: ");
+            clsCurrency CurrencyTo = _GetCurrency("\nPlease Enter Currency2 Code: ");
+            float Amount = _ReadAmount();
+
+            _PrintCalculationsResults(Amount, CurrencyFrom, CurrencyTo);
+
+            cout << "\n\nDo you want to perform another calculation? y/n ? ";
+            cin >> Continue;
+
+        }
+
 
     }
-
-
 };
+
