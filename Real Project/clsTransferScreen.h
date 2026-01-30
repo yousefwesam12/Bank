@@ -13,7 +13,7 @@ class clsTransferScreen : protected clsScreen
         do
         {
             cout << "\n" << "Enter Transfer Amount? ";
-            TransferAmount = clsInputValidate::ReadDoubleNumber();
+            TransferAmount = clsInputValidate::ReadNumber<double>();
 
         } while (TransferAmount<=0);
 

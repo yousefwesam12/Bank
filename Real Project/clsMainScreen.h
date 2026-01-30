@@ -31,7 +31,7 @@ class clsMainScreen : protected clsScreen
     {
         short Choice = 0;
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 10]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,10);
+        Choice = clsInputValidate::ReadNumberBetween(1,10);
         return Choice;
     }
     

@@ -52,7 +52,7 @@ class clsDepositScreen : protected clsScreen
         double DepositValue = 0;
 
         cout << "Please enter deposit amount? ";
-        DepositValue = clsInputValidate::ReadDoubleNumber();
+        DepositValue = clsInputValidate::ReadNumber<float>();
 
         char answer = 'n';
         cout << "\n" << "Are you sure you want to perform this transaction? Y/N? ";

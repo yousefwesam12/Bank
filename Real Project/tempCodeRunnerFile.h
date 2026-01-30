@@ -1,0 +1,2 @@
+
+        AccountNumber = clsInputValidate::ReadString();

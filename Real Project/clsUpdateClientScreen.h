@@ -38,7 +38,7 @@ class clsUpdateClientScreen : protected clsScreen
         Client.SetPinCode(clsInputValidate::ReadString());
 
         cout << "\n" << "Please Enter Account Balance : ";
-        Client.SetAccountBalance(clsInputValidate::ReadDoubleNumber());
+        Client.SetAccountBalance(clsInputValidate::ReadNumber<float>());
     }
     
 

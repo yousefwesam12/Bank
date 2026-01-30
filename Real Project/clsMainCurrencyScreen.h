@@ -35,7 +35,7 @@ class clsMainCurrencyScreen : clsScreen
     {
         short Choice = 0;
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 5]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,5);
+        Choice = clsInputValidate::ReadNumberBetween<int>(1,5);
         return Choice;
     }
 

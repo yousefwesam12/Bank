@@ -25,7 +25,7 @@ class clsTransactionsScreen : protected clsScreen
     {
         short Choice = 0;
         cout << setw(37)  << left << "" << "Enter your choice? [1 to 6]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,6);
+        Choice = clsInputValidate::ReadNumberBetween<int>(1,6);
         return Choice;
     }
        static void _ClearScreen()

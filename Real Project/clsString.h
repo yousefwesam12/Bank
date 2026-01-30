@@ -68,6 +68,8 @@ class clsString
                 return S1.substr(i, S1.length() - i);
             }
         }
+
+        return " ";
     }
     void TrimLeft()
     {

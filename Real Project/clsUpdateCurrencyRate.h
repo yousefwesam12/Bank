@@ -58,7 +58,7 @@ class clsUpdateCurrencyScreen : protected clsScreen
 
         float NewRate = 0;
         cout << "Enter New Rate: ";
-        NewRate = clsInputValidate::ReadDoubleNumber();
+        NewRate = clsInputValidate::ReadNumber<double>();
 
         Currency.UpdateRate(NewRate);
 

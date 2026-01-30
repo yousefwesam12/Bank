@@ -13,7 +13,7 @@ class clsFindCurrencyScreen : protected clsScreen
     {
         int Choice = 0;
         cout << "\nFind By: [1] Code or [2] Country ? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1,2);
+        Choice = clsInputValidate::ReadNumberBetween<int>(1,2);
         return Choice;
     }
 
